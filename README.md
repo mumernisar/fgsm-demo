@@ -7,7 +7,7 @@ A minimal Next.js UI for visualizing FGSM adversarial attacks. It talks to a bac
 Environment variables:
 
 - `NEXT_PUBLIC_API_URL` (required): Base URL of the attack backend (e.g. `https://your-api.example.com`). Falls back to `http://localhost:8000` in development.
-- `PEXELS_API_KEY` (optional, server runtime): Enables the gallery picker via the built-in `/api/pexels` route.
+- `NEXT_PEXELS_API_KEY` (optional, server runtime): Enables the gallery picker via the built-in `/api/pexels` route.
 
 ## Develop
 

@@ -8,10 +8,10 @@ export async function GET(request) {
     Math.min(Number(searchParams.get("max") || perPage), 80)
   );
 
-  const API_KEY = process.env.PEXELS_API_KEY;
+  const API_KEY = process.env.NEXT_PEXELS_API_KEY;
   if (!API_KEY) {
     return new Response(
-      JSON.stringify({ error: "Missing PEXELS_API_KEY on server" }),
+      JSON.stringify({ error: "Missing NEXT_PEXELS_API_KEY on server" }),
       { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }
