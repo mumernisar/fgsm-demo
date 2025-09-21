@@ -18,7 +18,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [pickerOpen, setPickerOpen] = useState(false);
   const fileRef = useRef(null);
-  const { runs, addRun } = useRunsStore();
+  const { runs, addRun, setRuns } = useRunsStore();
 
   async function onRun() {
     if (!selected) return;
@@ -119,6 +119,7 @@ export default function Home() {
             downloadB64(r.advB64, `adv_${Math.round(r.epsilon * 100)}.png`)
           }
           onRerun={(r) => setEpsilon(r.epsilon)}
+          onClear={() => setRuns([])}
         />
       </section>
 

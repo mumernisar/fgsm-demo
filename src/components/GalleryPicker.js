@@ -22,16 +22,12 @@ export default function GalleryPicker({ open, onOpenChange, onChoose }) {
 
   const categories = useMemo(
     () => [
-      "nature",
       "animals",
       "cats",
       "dogs",
       "cars",
-      "technology",
       "food",
-      "city",
       "sports",
-      "space",
     ],
     []
   );
