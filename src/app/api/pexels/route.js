@@ -9,6 +9,7 @@ export async function GET(request) {
   );
 
   const API_KEY = process.env.NEXT_PEXELS_API_KEY;
+  console.log("Using NEXT_PEXELS_API_KEY:", Boolean(API_KEY) , API_KEY);
   if (!API_KEY) {
     return new Response(
       JSON.stringify({ error: "Missing NEXT_PEXELS_API_KEY on server" }),
