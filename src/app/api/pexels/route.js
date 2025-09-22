@@ -42,7 +42,7 @@ console.log("Using NEXT_PEXELS_API_KEY:", Boolean(API_KEY), API_KEY);
     .filter((p) => p && p.width === p.height)
     .map((p) => ({
       id: String(p.id),
-      src: p.src?.medium || p.src?.original || p.src?.large2x || p.src?.large ,
+      src: p.src?.small  || p.src?.medium || p.src?.original || p.src?.large || p.src?.large2x  ,
       alt: p.alt || `Photo ${p.id}`,
       width: p.width,
       height: p.height,
