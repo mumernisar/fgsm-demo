@@ -15,26 +15,18 @@ export default function GalleryPicker({ open, onOpenChange, onChoose }) {
   const [query, setQuery] = useState("");
   const [search, setSearch] = useState("");
   const [hasMore, setHasMore] = useState(true);
-  const PER_PAGE = 20; // lower per-page batch size
-  const TOTAL_LIMIT = 100; // cap overall loaded items
+  const PER_PAGE = 20;
+  const TOTAL_LIMIT = 100;
   const sentinelRef = useRef(null);
   const scrollRef = useRef(null);
 
   const categories = useMemo(
-    () => [
-      "animals",
-      "cats",
-      "dogs",
-      "cars",
-      "food",
-      "sports",
-    ],
+    () => ["animals", "cats", "dogs", "cars", "food", "sports"],
     []
   );
 
   useEffect(() => {
     if (!open) return;
-    // Reset when opening
     setItems([]);
     setPage(1);
     setError("");
@@ -76,7 +68,6 @@ export default function GalleryPicker({ open, onOpenChange, onChoose }) {
     };
   }, [open, page, query]);
 
-  // When query changes (via search or category), reset list and page
   const onSubmitSearch = useCallback(
     (e) => {
       e.preventDefault();
@@ -97,7 +88,6 @@ export default function GalleryPicker({ open, onOpenChange, onChoose }) {
     setQuery(q);
   }, []);
 
-  // Infinite scroll via IntersectionObserver
   useEffect(() => {
     if (!open) return;
     const el = sentinelRef.current;
@@ -145,7 +135,6 @@ export default function GalleryPicker({ open, onOpenChange, onChoose }) {
             </button>
           </form>
 
-          {/* Quick categories */}
           <div className="mb-3 flex flex-wrap gap-2">
             {categories.map((c) => (
               <button
@@ -163,7 +152,6 @@ export default function GalleryPicker({ open, onOpenChange, onChoose }) {
 
           {error && <div className="text-sm text-red-600 mb-2">{error}</div>}
 
-          {/* Scrollable container for masonry grid */}
           <div ref={scrollRef} className="flex-1 overflow-y-auto pr-1">
             <div className="columns-2 sm:columns-3 lg:columns-4 xl:columns-5 2xl:columns-6 gap-3 [column-fill:_balance]">
               {items.map((it) => (
@@ -196,7 +184,6 @@ export default function GalleryPicker({ open, onOpenChange, onChoose }) {
               ))}
             </div>
 
-            {/* Infinite scroll sentinel */}
             <div
               ref={sentinelRef}
               className="mt-4 h-10 flex items-center justify-center text-sm text-gray-500"

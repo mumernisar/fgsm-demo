@@ -1,5 +1,4 @@
 export async function postAttack({ file, epsilon }) {
-  // Determine API base URL. Prefer env, else default to local FastAPI dev server.
   const base = (
     process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
   ).replace(/\/$/, "");
@@ -21,7 +20,6 @@ export async function postAttack({ file, epsilon }) {
   return res.json();
 }
 
-// Fetch gallery items from the Next.js Pexels API route
 export async function getGalleryItems({
   page = 1,
   perPage = 20,

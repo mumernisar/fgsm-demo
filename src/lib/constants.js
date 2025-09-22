@@ -1,1 +1,1 @@
-export const DEFAULT_IMAGE={src: "https://images.pexels.com/photos/5254256/pexels-photo-5254256.jpeg?auto=compress&cs=tinysrgb&h=350"}
+export const DEFAULT_IMAGE={src: "https://images.pexels.com/photos/1592384/pexels-photo-1592384.jpeg?auto=compress&cs=tinysrgb&h=350"}

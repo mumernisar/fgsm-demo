@@ -10,11 +10,7 @@ import { useRunsStore } from "@/hooks/useRunStore";
 import { runAttack } from "@/hooks/useAttack";
 import { Button } from "@/components/ui/button";
 import { DEFAULT_IMAGE } from "@/lib/constants";
-import { downloadB64 } from "@/lib/utils";
-
-const API_KEY = process.env.NEXT_PEXELS_API_KEY;
-
-console.log("Using NEXT_PEXELS_API_KEY:", API_KEY, API_KEY);
+import AttackLoader from "@/components/AttackLoader";
 
 export default function Home() {
   const [selected, setSelected] = useState(DEFAULT_IMAGE);
@@ -51,6 +47,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen grid grid-cols-1 md:grid-cols-5 gap-6 p-6">
+      <AttackLoader show={loading} />
       <section className="space-y-4 md:col-span-2">
         <div className="space-y-2">
           <h2 className="text-lg font-semibold tracking-tight">Input</h2>
@@ -117,14 +114,7 @@ export default function Home() {
 
       <section className="space-y-4 md:col-span-3">
         <h2>Output</h2>
-        <HistoryAccordion
-          runs={runs}
-          onDownload={(r) =>
-            downloadB64(r.advB64, `adv_${Math.round(r.epsilon * 100)}.png`)
-          }
-          onRerun={(r) => setEpsilon(r.epsilon)}
-          onClear={() => setRuns([])}
-        />
+        <HistoryAccordion runs={runs} onClear={() => setRuns([])} />
       </section>
 
       <GalleryPicker

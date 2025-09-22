@@ -15,7 +15,6 @@ import { Maximize2 } from "lucide-react";
 export default function HistoryAccordion({ runs = [], onClear }) {
   const [preview, setPreview] = useState(null);
   const [openValue, setOpenValue] = useState(runs[0]?.id);
-  // When runs change (new item added at the start), open the newest and close others
   useEffect(() => {
     if (runs.length) setOpenValue(runs[0].id);
   }, [runs]);
@@ -55,8 +54,6 @@ export default function HistoryAccordion({ runs = [], onClear }) {
               <div className="flex items-center gap-3">
                 <div className="flex items-center gap-1">
                   <Thumb src={r.origB64} alt="original" />
-                  {/* <span className="mx-1 text-gray-400">→</span>
-                  <Thumb src={r.advB64} alt="adversarial" isBase64 /> */}
                   <span className="mx-1 text-gray-400">→</span>
                   <Thumb
                     src={r.advB64}
@@ -75,17 +72,11 @@ export default function HistoryAccordion({ runs = [], onClear }) {
             </AccordionTrigger>
             <AccordionContent>
               <div className="p-2 sm:p-3">
-                {/* Asymmetric grid: left slightly smaller so square image fits, right wider for tables */}
                 <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
                   <div className="md:col-span-2">
                     <div className="rounded-lg border border-gray-200/60 bg-white p-2 shadow-sm">
-                      {/* Constrain and center the preview so it doesn't balloon on medium/narrow widths */}
                       <div className="mx-auto w-full max-w-[15rem] sm:max-w-[18rem] md:max-w-[18rem] lg:max-w-[22rem] xl:max-w-[24rem]">
                         <div className="aspect-square bg-gray-50 rounded-md overflow-hidden">
-                          {/* <button
-                            onClick={() =>
-                              setPreview(`data:image/png;base64,${r.advB64}`)
-                            } */}
                           <button
                             onClick={() =>
                               setPreview(
@@ -98,8 +89,9 @@ export default function HistoryAccordion({ runs = [], onClear }) {
                             aria-label="Open adversarial image preview"
                           >
                             <Image
-                              // src={`data:image/png;base64,${r.advB64}`}
-                              rc={`data:image/${r.advFmt || 'png'};base64,${r.advB64}`}
+                              src={`data:image/${r.advFmt || "png"};base64,${
+                                r.advB64
+                              }`}
                               alt="Adversarial result"
                               width={800}
                               height={800}
@@ -137,7 +129,6 @@ export default function HistoryAccordion({ runs = [], onClear }) {
           </AccordionItem>
         ))}
 
-        {/* Fullscreen adversarial image preview modal */}
         <Dialog open={!!preview} onOpenChange={(o) => !o && setPreview(null)}>
           <DialogContent className="max-w-6xl w-[95vw] p-4 sm:p-6 bg-white">
             <DialogTitle className="sr-only">Adversarial preview</DialogTitle>
@@ -163,7 +154,7 @@ export default function HistoryAccordion({ runs = [], onClear }) {
 
 // function Thumb({ src, alt = "", isBase64 = false }) {
 function Thumb({ src, alt = "", isBase64 = false, mime = "image/png" }) {
-if (!src)
+  if (!src)
     return (
       <div
         className="w-12 h-9 bg-gray-100 rounded border border-gray-200/70"
@@ -172,7 +163,6 @@ if (!src)
     );
   // const url = isBase64 ? `data:image/png;base64,${src}` : src;
   const url = isBase64 ? `data:${mime};base64,${src}` : src;
-
 
   return (
     <div className="w-12 h-9 bg-gray-100 rounded border border-gray-200/70 overflow-hidden">
