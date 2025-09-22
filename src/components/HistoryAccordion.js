@@ -55,8 +55,15 @@ export default function HistoryAccordion({ runs = [], onClear }) {
               <div className="flex items-center gap-3">
                 <div className="flex items-center gap-1">
                   <Thumb src={r.origB64} alt="original" />
+                  {/* <span className="mx-1 text-gray-400">→</span>
+                  <Thumb src={r.advB64} alt="adversarial" isBase64 /> */}
                   <span className="mx-1 text-gray-400">→</span>
-                  <Thumb src={r.advB64} alt="adversarial" isBase64 />
+                  <Thumb
+                    src={r.advB64}
+                    alt="adversarial"
+                    isBase64
+                    mime={`image/${r.advFmt || "png"}`}
+                  />
                 </div>
                 <div className="text-sm text-gray-700">
                   ε {Math.round(r.epsilon * 100)}%
@@ -75,15 +82,24 @@ export default function HistoryAccordion({ runs = [], onClear }) {
                       {/* Constrain and center the preview so it doesn't balloon on medium/narrow widths */}
                       <div className="mx-auto w-full max-w-[15rem] sm:max-w-[18rem] md:max-w-[18rem] lg:max-w-[22rem] xl:max-w-[24rem]">
                         <div className="aspect-square bg-gray-50 rounded-md overflow-hidden">
-                          <button
+                          {/* <button
                             onClick={() =>
                               setPreview(`data:image/png;base64,${r.advB64}`)
+                            } */}
+                          <button
+                            onClick={() =>
+                              setPreview(
+                                `data:image/${r.advFmt || "png"};base64,${
+                                  r.advB64
+                                }`
+                              )
                             }
                             className="group relative w-full h-full cursor-pointer"
                             aria-label="Open adversarial image preview"
                           >
                             <Image
-                              src={`data:image/png;base64,${r.advB64}`}
+                              // src={`data:image/png;base64,${r.advB64}`}
+                              rc={`data:image/${r.advFmt || 'png'};base64,${r.advB64}`}
                               alt="Adversarial result"
                               width={800}
                               height={800}
@@ -145,15 +161,18 @@ export default function HistoryAccordion({ runs = [], onClear }) {
   );
 }
 
-function Thumb({ src, alt = "", isBase64 = false }) {
-  if (!src)
+// function Thumb({ src, alt = "", isBase64 = false }) {
+function Thumb({ src, alt = "", isBase64 = false, mime = "image/png" }) {
+if (!src)
     return (
       <div
         className="w-12 h-9 bg-gray-100 rounded border border-gray-200/70"
         aria-hidden
       />
     );
-  const url = isBase64 ? `data:image/png;base64,${src}` : src;
+  // const url = isBase64 ? `data:image/png;base64,${src}` : src;
+  const url = isBase64 ? `data:${mime};base64,${src}` : src;
+
 
   return (
     <div className="w-12 h-9 bg-gray-100 rounded border border-gray-200/70 overflow-hidden">

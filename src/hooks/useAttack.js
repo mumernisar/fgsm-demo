@@ -29,12 +29,16 @@ export async function runAttack({ imageUrlOrB64, epsilon }) {
   const resp = await postAttack({ file, epsilon });
   const clean = normalizeServerTopk(resp.clean_topk);
   const adv = normalizeServerTopk(resp.adversarial_topk);
+   const advB64 = resp.img || resp.adversarial_image_base64_png || "";
+  const advFmt = resp.fmt || (resp.adversarial_image_base64_png ? "png" : "jpeg");
   return {
     id: crypto.randomUUID(),
     timestamp: Date.now(),
     epsilon,
     origB64: dataUrl,
-    advB64: resp.adversarial_image_base64_png,
+    // advB64: resp.adversarial_image_base64_png,
+    advB64,
+    advFmt,
     clean,
     adv,
     success: !!resp.attack_success,
