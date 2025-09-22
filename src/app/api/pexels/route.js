@@ -1,4 +1,8 @@
+
 export async function GET(request) {
+  const API_KEY = process.env.NEXT_PEXELS_API_KEY;
+
+console.log("Using NEXT_PEXELS_API_KEY:", Boolean(API_KEY), API_KEY);
   const { searchParams } = new URL(request.url);
   const page = Number(searchParams.get("page") || 1);
   const perPage = Math.min(Number(searchParams.get("per_page") || 80), 80);
@@ -8,9 +12,7 @@ export async function GET(request) {
     Math.min(Number(searchParams.get("max") || perPage), 80)
   );
 
-  const API_KEY = process.env.NEXT_PEXELS_API_KEY;
-  console.log("Using NEXT_PEXELS_API_KEY:", Boolean(API_KEY) , API_KEY);
-  if (!API_KEY) {
+  if (API_KEY == "") {
     return new Response(
       JSON.stringify({ error: "Missing NEXT_PEXELS_API_KEY on server" }),
       { status: 500, headers: { "Content-Type": "application/json" } }
@@ -40,7 +42,7 @@ export async function GET(request) {
     .filter((p) => p && p.width === p.height)
     .map((p) => ({
       id: String(p.id),
-      src: p.src?.large2x || p.src?.large || p.src?.medium || p.src?.original,
+      src: p.src?.medium || p.src?.original || p.src?.large2x || p.src?.large ,
       alt: p.alt || `Photo ${p.id}`,
       width: p.width,
       height: p.height,

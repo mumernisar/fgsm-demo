@@ -12,6 +12,10 @@ import { Button } from "@/components/ui/button";
 import { DEFAULT_IMAGE } from "@/lib/constants";
 import { downloadB64 } from "@/lib/utils";
 
+const API_KEY = process.env.NEXT_PEXELS_API_KEY;
+
+console.log("Using NEXT_PEXELS_API_KEY:", API_KEY, API_KEY);
+
 export default function Home() {
   const [selected, setSelected] = useState(DEFAULT_IMAGE);
   const [epsilon, setEpsilon] = useState(0.1);
